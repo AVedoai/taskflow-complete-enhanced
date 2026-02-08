@@ -34,11 +34,12 @@ export class TaskController {
     }
   }
 
-  async createTask(
-    req: AuthRequest<{}, {}, CreateTaskInput>,
-    res: Response,
-    next: NextFunction
-  ): Promise<void> {
+async createTask(
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+): Promise<void> {
+
     try {
       const userId = req.user!.userId;
       const result = await taskService.createTask(userId, req.body);
@@ -48,11 +49,12 @@ export class TaskController {
     }
   }
 
-  async updateTask(
-    req: AuthRequest<{ id: string }, {}, UpdateTaskInput>,
-    res: Response,
-    next: NextFunction
-  ): Promise<void> {
+async updateTask(
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+): Promise<void> {
+
     try {
       const userId = req.user!.userId;
       const taskId = req.params.id;
