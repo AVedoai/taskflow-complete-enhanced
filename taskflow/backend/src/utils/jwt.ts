@@ -46,3 +46,28 @@ export const verifyRefreshToken = (token: string): TokenPayload => {
 
 export const generateRandomToken = (): string =>
   crypto.randomBytes(32).toString('hex');
+
+
+
+export const getRefreshTokenExpiry = (): Date => {
+  const expiry = process.env.REFRESH_TOKEN_EXPIRY ?? '7d';
+  const now = new Date();
+
+  const match = expiry.match(/^(\d+)([dhm])$/);
+
+  if (!match) {
+    return new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+  }
+
+  const value = parseInt(match[1], 10);
+  const unit = match[2];
+
+  const multipliers: Record<string, number> = {
+    d: 24 * 60 * 60 * 1000,
+    h: 60 * 60 * 1000,
+    m: 60 * 1000,
+  };
+
+  return new Date(now.getTime() + value * multipliers[unit]);
+};
+
