@@ -1,37 +1,37 @@
 import type { Metadata } from "next";
-import { Playfair_Display, DM_Sans } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { AuthInitializer } from "@/components/auth-initializer";
 
-const playfair = Playfair_Display({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-playfair",
-  weight: ["700", "900"],
+  variable: "--font-inter",
+  weight: ["400", "500", "600", "700"],
 });
 
-const dmSans = DM_Sans({
+const poppins = Poppins({
   subsets: ["latin"],
-  variable: "--font-dm-sans",
-  weight: ["400", "500", "700"],
+  variable: "--font-poppins",
+  weight: ["500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "TaskFlow - Elegant Task Management",
-  description: "Production-grade task management platform",
+  title: "TaskFlow – Smart Task Management",
+  description: "Modern task management platform",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className={`${playfair.variable} ${dmSans.variable} antialiased`}>
-        <AuthInitializer>
-          {children}
-        </AuthInitializer>
+      <body
+        className={`${inter.variable} ${poppins.variable} antialiased`}
+      >
+        <AuthInitializer>{children}</AuthInitializer>
         <Toaster />
       </body>
     </html>
